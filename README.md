@@ -73,7 +73,7 @@
 #
 ## Preview Image 
 
-:stop_entry: It will use **css** folder and **js** folder (Serving Static File).
+:no_entry: It will use **css** folder and **js** folder (Serving Static File).
 
 :left_speech_bubble: How to put in one folder?
 
@@ -132,4 +132,103 @@
     }
     ```
 #
+
+## Display Images 
+Display images and `req.file` data.
+
+1. In _**app.js**_ , create a variable to all `req.file` like a below.
+   ```console
+       {
+            fieldname: 'uploadImage',
+            originalname: 'arrow.png',
+            encoding: '7bit',
+            mimetype: 'image/png',
+            destination: 'uploads',
+            filename: 'uploadImage.png',
+            path: 'uploads\\uploadImage.png',
+            size: 17038
+        }
+    ```
+2. Create a variable under a `app.post()` method.
+   ```js
+   const fieldname = req.file.fieldname;
+   const originalname = req.file.originalname;
+   const mimetype = req.file.mimetype;
+   const destination = req.file.destination;
+   const filename = req.file.filename;
+   const path = req.file.path;
+   const size = req.file.size;
+   ```
+3. To display a data, create a new file inside **view** folder, called _view.ejs_.
+4. To called view.ejs use `res.render()`.
+   ```js
+   res.render('view');
+   ```
+5. Add variable inside a `res.render()`.
+   ```js 
+   res.render('view', {fieldname, originalname, mimetype, destination, filename, path, size});
+   ```
+6. To display a data inside ejs template.
+7. In a **view.ejs**, copy code in a below.
+   
+   ```html
+       <table>
+        <tr>
+            <th>Fieldname :</th>
+            <td><%= typeof fieldname != `undefined` ? fieldname : '' %></td>
+        </tr>
+        <tr>
+            <th>Originalname :</th>
+            <td><%= typeof originalname != `undefined` ? originalname : '' %></td>
+        </tr>
+        <tr>
+            <th>Mimetype :</th>
+            <td><%= typeof mimetype != `undefined` ? mimetype : '' %></td>
+        </tr>
+        <tr>
+            <th>Destination :</th>
+            <td><%= typeof destination != `undefined` ? destination : '' %></td>
+        </tr>
+        <tr>
+            <th>Filename :</th>
+            <td><%= typeof filename != `undefined` ? filename : '' %></td>
+        </tr>
+        <tr>
+            <th>Path :</th>
+            <td><%= typeof path != `undefined` ? path : '' %></td>
+        </tr>
+        <tr>
+            <th>Size :</th>
+            <td><%= typeof size != `undefined` ? size : '' %></td>
+        </tr>
+    </table>
+    ```
+    :warning: `table` tag, why use `typeof variable != 'undefined'` because if don't put it will error **var undefined**.
+
+8. Done display a data.
+9. Let's display the images.
+10. Create a variable inside `app.post()` method.
+    ```js
+    const images = req.file.path;
+    ```
+11. Call inside `res.render()`.
+    ```js
+    res.render('view', {images,fieldname, originalname, mimetype, destination, filename, path, size});
+    ```
+12. In a _view.ejs_, add `img` tag.
+    ```html
+    <img id="preview-image" src="<%= typeof images != `undefined` ? images : '' %>">
+    ```
+13. This it is **important** to display a images. Put in a **app.js** in middleware.
+    
+    ```js
+    app.use('/uploads', express.static('uploads'));
+    ```
+
+14. Add same css file.
+    ```html
+     <link rel="stylesheet" href="/static/css/styles.css">
+     ```
+
+
 
