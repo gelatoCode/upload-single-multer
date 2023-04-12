@@ -22,7 +22,9 @@
    ```
    :warning: `action` put the path `'/upload'` because the **route** `app.post()` method set same to post.
 
-5. Use **Disk storage** engine full control on storing file to disk, first add the **storage**.
+5. Create a new folder by called **uploads** for images upload directory.
+   
+6. Use **Disk storage** engine full control on storing file to disk, first add the **storage**.
    ```javascript
    const storage = multer.diskStorage({
     destination : (req, file, callback) => {
@@ -37,27 +39,27 @@
    ```
    :warning: `destination` used to determine within       which folder the uploaded images should be stored. `fieldname` used to determine what the file should be named inside the folder. `originalname` for extension like _png, jpg_.
 
-6. Load a path module, it because used inside the storage.
+7. Load a path module, it because used inside the storage.
     ```js
     const path = require('path');
     ```
-7. Create a **route** post, `app.post()` and add the path of url `/upload`. Basic usage for multer add `upload.single('uploadImage')` . 
+8. Create a **route** post, `app.post()` and add the path of url `/upload`. Basic usage for multer add `upload.single('uploadImage')` . 
    ```js
    app.post('/upload', upload.single('uploadImage') , (req, res) => {
     console.log(req.file);
    })
    ```
    :warning: For `upload` call by storage. **uploadImage** same with `input` tag file `name`.
-8. Back to *index.ejs*, add a input tag submit.
+9.  Back to *index.ejs*, add a input tag submit.
    ```html
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <input type="file" name="uploadImage">
         <input type="submit">
     </form>
     ```
-9. Run a app `npm start`. In browser, `localhost:8080`
+10. Run a app `npm start`. In browser, `localhost:8080`
      
-10. Inside the **upload** folder, will be come like this **uploadImage.png** . And `console.log(req.file)` like a below.
+11. Inside the **upload** folder, will be come like this **uploadImage.png** . And `console.log(req.file)` like a below.
     ```console
     {
         fieldname: 'uploadImage',
@@ -230,5 +232,5 @@ Display images and `req.file` data.
      <link rel="stylesheet" href="/static/css/styles.css">
      ```
 
-
+15. Run the app use this `npm start`.
 
