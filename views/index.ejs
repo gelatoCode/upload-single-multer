@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
     <title>Document</title>
 </head>
 <body>
+    <img id="preview-image">
     <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="uploadImage">
+        <input type="file" name="uploadImage" onchange="showPreview(event);" accept="image/*">
         <input type="submit">
     </form>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>

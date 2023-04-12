@@ -20,6 +20,8 @@ const upload = multer({ storage : storage });
 // Template Engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
+// Static Files
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req,res) => {
     res.render('index');
